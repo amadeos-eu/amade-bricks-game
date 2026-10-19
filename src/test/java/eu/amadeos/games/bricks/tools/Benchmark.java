@@ -4,6 +4,7 @@ import eu.amadeos.commons.i18n.Messages;
 import eu.amadeos.commons.swing.EdtExecutor;
 import eu.amadeos.gameengine.audio.Mixer;
 import eu.amadeos.gameengine.input.Keyboard;
+import eu.amadeos.gameengine.input.Mouse;
 import eu.amadeos.gameengine.loop.FrameTimes;
 import eu.amadeos.gameengine.score.HighScores;
 import eu.amadeos.gameengine.score.PlayerName;
@@ -51,12 +52,14 @@ public final class Benchmark {
         BricksSettings settings = new BricksSettings(dir.resolve("bricks.properties"));
         HighScores scores = new HighScores(dir.resolve("scores"), Ranking.HIGHER_WINS);
         Keyboard keyboard = new Keyboard();
+        Mouse mouse = new Mouse();
         BricksWindow[] window = new BricksWindow[1];
         BricksGame[] game = new BricksGame[1];
         SwingUtilities.invokeAndWait(() -> {
-            game[0] = new BricksGame(keyboard, msg, settings, LevelFiles.load(), new SplittableRandom(21), new Mixer(),
+            game[0] = new BricksGame(keyboard, mouse, msg, settings, LevelFiles.load(), new SplittableRandom(21), new Mixer(),
                     new EdtExecutor());
-            window[0] = new BricksWindow(msg, scores, new PlayerName(dir, "benchmark"), game[0], keyboard);
+            window[0] = new BricksWindow(msg, scores, new PlayerName(dir, "benchmark"), game[0], keyboard,
+                    mouse);
             BricksPresenter presenter = new BricksPresenter(window[0], game[0], msg, settings, scores);
             window[0].bind(presenter);
             presenter.start();

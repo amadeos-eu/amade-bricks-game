@@ -5,6 +5,7 @@ import eu.amadeos.commons.i18n.Messages;
 import eu.amadeos.commons.i18n.Mnemonics;
 import eu.amadeos.commons.swing.EdtExecutor;
 import eu.amadeos.gameengine.input.Keyboard;
+import eu.amadeos.gameengine.input.Mouse;
 import eu.amadeos.gameengine.score.HighScores;
 import eu.amadeos.gameengine.score.PlayerName;
 import eu.amadeos.gameengine.swing.FullScreen;
@@ -19,8 +20,11 @@ import eu.amadeos.games.bricks.ui.game.BricksGame;
 
 import javax.swing.*;
 import java.awt.BorderLayout;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,7 +45,8 @@ public final class BricksWindow extends JFrame implements BricksView {
     private BricksPresenter presenter;
 
     @Inject
-    public BricksWindow(Messages msg, HighScores scores, PlayerName playerName, BricksGame game, Keyboard keyboard) {
+    public BricksWindow(Messages msg, HighScores scores, PlayerName playerName, BricksGame game, Keyboard keyboard,
+                        Mouse mouse) {
         super(msg.get("window.title"));
         EdtExecutor.requireEdt();
         this.msg = msg;
@@ -58,6 +63,10 @@ public final class BricksWindow extends JFrame implements BricksView {
         // Two layers: the world, and the overlay with score and texts, always at the screen's full size.
         canvas = new GameCanvas((int) Field.WIDTH, (int) Field.HEIGHT, game::render, game::renderOverlay);
         keyboard.attach(canvas);
+        mouse.attach(canvas);
+        // The paddle is the pointer: over the field, the mouse pointer is hidden.
+        canvas.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB), new Point(), "none"));
         // --8<-- [end:canvas]
         getContentPane().add(canvas, BorderLayout.CENTER);
         fullScreen = new FullScreen(this, canvas);

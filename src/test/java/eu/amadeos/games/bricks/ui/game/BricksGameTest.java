@@ -3,6 +3,7 @@ package eu.amadeos.games.bricks.ui.game;
 import eu.amadeos.commons.i18n.Messages;
 import eu.amadeos.gameengine.audio.Mixer;
 import eu.amadeos.gameengine.input.Keyboard;
+import eu.amadeos.gameengine.input.Mouse;
 import eu.amadeos.games.bricks.bootstrap.BricksModule;
 import eu.amadeos.games.bricks.domain.Field;
 import eu.amadeos.games.bricks.domain.Game;
@@ -15,6 +16,7 @@ import org.junit.jupiter.api.io.TempDir;
 
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -38,13 +40,14 @@ class BricksGameTest {
 
     private final long[] now = {0};
     private final Keyboard keyboard = new Keyboard(() -> now[0]);
+    private final Mouse mouse = new Mouse();
     private final List<GameResult> results = new ArrayList<>();
     private BricksGame game;
 
     @BeforeEach
     void create() {
         Messages msg = Messages.load(BricksModule.class, BricksModule.MESSAGES, Locale.ENGLISH);
-        game = new BricksGame(keyboard, msg, new BricksSettings(dir.resolve("bricks.properties")), LevelFiles.load(),
+        game = new BricksGame(keyboard, mouse, msg, new BricksSettings(dir.resolve("bricks.properties")), LevelFiles.load(),
                 new SplittableRandom(4), new Mixer(), Runnable::run);
         game.onGameOver(results::add);
     }
@@ -77,6 +80,27 @@ class BricksGameTest {
         tap(KeyEvent.VK_SPACE);
         assertEquals(Game.Phase.PLAYING, play.game().phase());
     }
+
+    // --8<-- [start:test-mouse]
+    @Test
+    void aClickStartsAndLaunchesThePaddleFollowsTheMouse() {
+        mouse.pressed(MouseEvent.BUTTON1);
+        steps(1);
+        BricksGame.PlayScene play = assertInstanceOf(BricksGame.PlayScene.class, game.top());
+        mouse.moved(100, 300);
+        steps(60);
+        assertEquals(100, play.game().paddle().centerX(), 1e-9);
+        // The keys take over until the mouse moves again.
+        keyboard.pressed(KeyEvent.VK_RIGHT, now[0]);
+        steps(30);
+        keyboard.released(KeyEvent.VK_RIGHT, now[0]);
+        steps(4);
+        assertTrue(play.game().paddle().centerX() > 150, "the keys moved it");
+        mouse.pressed(MouseEvent.BUTTON1);
+        steps(1);
+        assertEquals(Game.Phase.PLAYING, play.game().phase());
+    }
+    // --8<-- [end:test-mouse]
 
     @Test
     void pFreezesTheGameAndContinuesIt() {
