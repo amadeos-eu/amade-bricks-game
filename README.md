@@ -7,7 +7,7 @@
 
 ## Playing
 
-- **Enter** or **Space** (or F2) starts a game. Move the paddle with the **arrow keys** (or A and D), launch the ball with **Space**.
+- **Enter**, **Space** or a **click** (or F2) starts a game. Move the paddle with the **arrow keys** (or A and D) or the **mouse**, launch the ball with **Space** or a **click**.
 - Where the ball meets the paddle decides its angle: the middle sends it straight up, the edges steeply. Every hit makes the ball faster.
 - Coloured bricks break at the first hit, **silver** ones take two, **gold** ones never break. Clear all breakable bricks to reach the next level; there are five.
 - Three balls per game. **P** or **Esc** pauses, and so does leaving the window.

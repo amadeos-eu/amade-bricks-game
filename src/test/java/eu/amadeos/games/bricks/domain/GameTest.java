@@ -53,6 +53,21 @@ class GameTest {
 
     // --8<-- [start:test-brick]
     @Test
+    void thePaddleFollowsTheMouseFastButStaysBetweenTheWalls() {
+        Game game = game(row("r"));
+        double start = game.paddle().centerX();
+        game.aim(100);
+        game.update(STEP, 0, false);
+        // One step covers at most the follow speed: no jump through a falling ball.
+        assertEquals(start - Field.PADDLE_FOLLOW_SPEED * STEP, game.paddle().centerX(), 1e-9);
+        for (int i = 0; i < 60; i++) game.update(STEP, 0, false);
+        assertEquals(100, game.paddle().centerX(), 1e-9);
+        game.aim(-50);   // over the black bar left of the field
+        for (int i = 0; i < 60; i++) game.update(STEP, 0, false);
+        assertEquals(Field.LEFT, game.paddle().x(), 1e-9);
+    }
+
+    @Test
     void aBrickBreaksScoresAndSendsTheBallBack() {
         Game game = game(row("rr"));
         // Straight up under the first brick (x 20 to 60, bottom at y 80).

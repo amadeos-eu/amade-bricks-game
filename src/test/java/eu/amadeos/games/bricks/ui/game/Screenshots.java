@@ -3,6 +3,7 @@ package eu.amadeos.games.bricks.ui.game;
 import eu.amadeos.commons.i18n.Messages;
 import eu.amadeos.gameengine.audio.Mixer;
 import eu.amadeos.gameengine.input.Keyboard;
+import eu.amadeos.gameengine.input.Mouse;
 import eu.amadeos.games.bricks.bootstrap.BricksModule;
 import eu.amadeos.games.bricks.domain.Field;
 import eu.amadeos.games.bricks.domain.Game;
@@ -33,7 +34,7 @@ public final class Screenshots {
 
     private Screenshots() throws Exception {
         Messages msg = Messages.load(BricksModule.class, BricksModule.MESSAGES, Locale.ENGLISH);
-        game = new BricksGame(keyboard, msg,
+        game = new BricksGame(keyboard, new Mouse(), msg,
                 new BricksSettings(Files.createTempDirectory("bricks").resolve("bricks.properties")),
                 LevelFiles.load(), new SplittableRandom(11), new Mixer(), Runnable::run);
         hud = new Hud(msg);

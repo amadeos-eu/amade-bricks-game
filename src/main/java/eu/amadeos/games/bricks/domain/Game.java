@@ -95,6 +95,11 @@ public final class Game {
         return Collections.unmodifiableList(events);
     }
 
+    /** The mouse points at {@code x}: the paddle follows it from the next step on, until a key moves it. */
+    public void aim(double x) {
+        paddle.aim(x);
+    }
+
     // --8<-- [start:update]
     /**
      * One step: the paddle moves ({@code -1} left, {@code +1} right, 0 not), a ball on the paddle is launched

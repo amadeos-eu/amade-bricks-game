@@ -6,6 +6,7 @@ import eu.amadeos.commons.swing.EdtExecutor;
 import eu.amadeos.gameengine.audio.Mixer;
 import eu.amadeos.gameengine.input.Controls;
 import eu.amadeos.gameengine.input.Keyboard;
+import eu.amadeos.gameengine.input.Mouse;
 import eu.amadeos.gameengine.loop.GameLoop;
 import eu.amadeos.gameengine.scene.Scene;
 import eu.amadeos.gameengine.scene.SceneStack;
@@ -19,6 +20,7 @@ import eu.amadeos.games.bricks.repository.BricksSettings;
 
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.function.Consumer;
@@ -38,6 +40,7 @@ public final class BricksGame implements Arena {
     static final int FRAMES_PER_SECOND = 60;
 
     private final Keyboard keyboard;
+    private final Mouse mouse;
     private final Controls<Action> controls;
     private final Messages msg;
     private final List<Level> levels;
@@ -52,14 +55,15 @@ public final class BricksGame implements Arena {
     private GameLoop loop;
 
     @Inject
-    public BricksGame(Keyboard keyboard, Messages msg, BricksSettings settings, List<Level> levels,
+    public BricksGame(Keyboard keyboard, Mouse mouse, Messages msg, BricksSettings settings, List<Level> levels,
                       RandomGenerator random, Mixer mixer, EdtExecutor ui) {
-        this(keyboard, msg, settings, levels, random, mixer, (Executor) ui);
+        this(keyboard, mouse, msg, settings, levels, random, mixer, (Executor) ui);
     }
 
-    BricksGame(Keyboard keyboard, Messages msg, BricksSettings settings, List<Level> levels, RandomGenerator random,
-               Mixer mixer, Executor ui) {
+    BricksGame(Keyboard keyboard, Mouse mouse, Messages msg, BricksSettings settings, List<Level> levels,
+               RandomGenerator random, Mixer mixer, Executor ui) {
         this.keyboard = keyboard;
+        this.mouse = mouse;
         this.msg = msg;
         this.levels = levels;
         this.random = random;
@@ -90,7 +94,13 @@ public final class BricksGame implements Arena {
 
     void update(double seconds) {
         keyboard.poll();
+        mouse.poll();
         scenes.update(seconds);
+    }
+
+    /** Enter, Space or a click: on to the next screen. */
+    private boolean proceed() {
+        return controls.wasPressed(Action.START) || mouse.wasPressed(MouseEvent.BUTTON1);
     }
 
     /** The world of all scenes, in logical coordinates. */
@@ -154,7 +164,7 @@ public final class BricksGame implements Arena {
 
     // ---- the scenes ------------------------------------------------------------------------------
 
-    /** The computer plays, silently; Enter or Space starts a game. */
+    /** The computer plays, silently; Enter, Space or a click starts a game. */
     final class TitleScene implements Scene {
         private Game demo = new Game(levels, random);
         private final Autopilot pilot = new Autopilot(random);
@@ -165,7 +175,7 @@ public final class BricksGame implements Arena {
 
         @Override
         public void update(double seconds) {
-            if (controls.wasPressed(Action.START)) {
+            if (proceed()) {
                 scenes.replace(new PlayScene());
                 return;
             }
@@ -195,7 +205,7 @@ public final class BricksGame implements Arena {
     }
 
     // --8<-- [start:play]
-    /** A game: the paddle follows the keys, the events become splinters and sounds. */
+    /** A game: the paddle follows the keys or the mouse, the events become splinters and sounds. */
     final class PlayScene implements Scene {
         private final Game game = new Game(levels, random);
 
@@ -209,7 +219,9 @@ public final class BricksGame implements Arena {
                 scenes.push(new PauseScene());
                 return;
             }
-            game.update(seconds, controls.axis(Action.LEFT, Action.RIGHT), controls.wasPressed(Action.LAUNCH));
+            if (mouse.wasMoved()) game.aim(mouse.x());
+            boolean launch = controls.wasPressed(Action.LAUNCH) || mouse.wasPressed(MouseEvent.BUTTON1);
+            game.update(seconds, controls.axis(Action.LEFT, Action.RIGHT), launch);
             effects.react(game.events(), true);
             effects.update(seconds);
             for (Event event : game.events()) {
@@ -242,11 +254,11 @@ public final class BricksGame implements Arena {
     }
     // --8<-- [end:play]
 
-    /** Drawn over the frozen game until P, Esc, Enter or Space. */
+    /** Drawn over the frozen game until P, Esc, Enter, Space or a click. */
     final class PauseScene implements Scene {
         @Override
         public void update(double seconds) {
-            if (controls.wasPressed(Action.PAUSE) || controls.wasPressed(Action.START)) scenes.pop();
+            if (controls.wasPressed(Action.PAUSE) || proceed()) scenes.pop();
         }
 
         @Override
@@ -261,7 +273,7 @@ public final class BricksGame implements Arena {
         }
     }
 
-    /** The end: the splinters settle, the score stays, Enter or Space leads back to the title. */
+    /** The end: the splinters settle, the score stays, Enter, Space or a click leads back to the title. */
     final class OverScene implements Scene {
         private final Game game;
         private final GameResult result;
@@ -276,8 +288,8 @@ public final class BricksGame implements Arena {
         public void update(double seconds) {
             effects.update(seconds);
             shown += seconds;
-            // A short wait, so a Space meant for the ball does not skip the end.
-            if (shown > 1 && controls.wasPressed(Action.START)) scenes.replace(new TitleScene());
+            // A short wait, so a Space or click meant for the ball does not skip the end.
+            if (shown > 1 && proceed()) scenes.replace(new TitleScene());
         }
 
         @Override

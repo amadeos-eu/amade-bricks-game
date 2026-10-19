@@ -28,6 +28,8 @@ public final class Field {
     public static final double PADDLE_HEIGHT = 10;
     public static final double PADDLE_Y = 370;
     public static final double PADDLE_SPEED = 460;
+    /** How fast the paddle follows the mouse: fast, but never a jump through a falling ball. */
+    public static final double PADDLE_FOLLOW_SPEED = 1600;
 
     public static final double BALL_SIZE = 8;
     public static final double BALL_SPEED = 280;

@@ -10,6 +10,7 @@ import eu.amadeos.commons.config.XdgDirectories;
 import eu.amadeos.commons.i18n.Messages;
 import eu.amadeos.gameengine.audio.Mixer;
 import eu.amadeos.gameengine.input.Keyboard;
+import eu.amadeos.gameengine.input.Mouse;
 import eu.amadeos.gameengine.score.HighScores;
 import eu.amadeos.gameengine.score.PlayerName;
 import eu.amadeos.gameengine.score.Ranking;
@@ -38,6 +39,7 @@ public final class BricksModule extends AbstractModule {
     protected void configure() {
         bind(BricksSettings.class).in(Scopes.SINGLETON);
         bind(Keyboard.class).in(Scopes.SINGLETON);
+        bind(Mouse.class).in(Scopes.SINGLETON);
         bind(Mixer.class).in(Scopes.SINGLETON);
         bind(BricksGame.class).in(Scopes.SINGLETON);
         bind(Arena.class).to(BricksGame.class);
