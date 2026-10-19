@@ -1,0 +1,9 @@
+# Level 3: a chequerboard behind two gold blocks.
+sssssssssssssss
+r.r.r.r.r.r.r.r
+.o.o.o.o.o.o.o.
+y.y.y.y.y.y.y.y
+.g.g.g.g.g.g.g.
+b.b.b.b.b.b.b.b
+...............
+XXXX.......XXXX

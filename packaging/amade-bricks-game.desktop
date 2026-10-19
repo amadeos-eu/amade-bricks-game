@@ -1,0 +1,24 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=amadeOS Bricks
+Name[de]=amadeOS Bricks
+Name[fr]=amadeOS Bricks
+Name[es]=amadeOS Bricks
+Name[it]=amadeOS Bricks
+GenericName=Brick-Breaking Game
+GenericName[de]=Mauerbrecher-Spiel
+GenericName[fr]=Casse-briques
+GenericName[es]=Rompeladrillos
+GenericName[it]=Spaccamattoni
+Comment=Break the wall of bricks with ball and paddle, five levels
+Comment[de]=Zerschlagen Sie die Mauer aus Steinen mit Ball und Schläger, fünf Level
+Comment[fr]=Cassez le mur de briques avec la balle et la raquette, cinq niveaux
+Comment[es]=Rompa el muro de ladrillos con la pelota y la pala, cinco niveles
+Comment[it]=Rompi il muro di mattoni con palla e racchetta, cinque livelli
+Icon=amade-bricks-game
+Exec=/usr/bin/amade-bricks-game
+Terminal=false
+Categories=Game;ArcadeGame;
+Keywords=breakout;arkanoid;bricks;ball;paddle;arcade;game;
+StartupNotify=true

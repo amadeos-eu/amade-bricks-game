@@ -1,0 +1,9 @@
+# Level 5: a fortress with a gold roof; break in from below.
+bbbbbbbbbbbbbbb
+bXXXXXX.XXXXXXb
+br...........rb
+bryyyyyyyyyyyrb
+bryyysssssyyyrb
+bryyyyyyyyyyyrb
+br...........rb
+bvvvvvvvvvvvvvb
