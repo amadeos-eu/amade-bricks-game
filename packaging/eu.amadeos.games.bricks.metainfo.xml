@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- AppStream metadata of amade-bricks-game, installed as /usr/share/metainfo/eu.amadeos.games.bricks.metainfo.xml.
+     amadeOS Software shows it for the installed package; a repository's appstream-generator reads it too. -->
+<component type="desktop-application">
+  <id>eu.amadeos.games.bricks</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>EUPL-1.2</project_license>
+
+  <name>amadeOS Bricks</name>
+
+  <summary>Break the wall of bricks with ball and paddle, five levels</summary>
+  <summary xml:lang="de">Die Ziegelmauer mit Ball und Schläger zerschlagen, fünf Level</summary>
+  <summary xml:lang="fr">Cassez le mur de briques avec la balle et la raquette, cinq niveaux</summary>
+  <summary xml:lang="es">Rompa el muro de ladrillos con la pelota y la pala, cinco niveles</summary>
+  <summary xml:lang="it">Abbatti il muro di mattoni con palla e racchetta, cinque livelli</summary>
+
+  <description>
+    <p>The classic wall of bricks: keep the ball in play with your paddle and break every brick. Five levels, with the keyboard or the mouse.</p>
+    <p xml:lang="de">Die klassische Ziegelmauer: Halten Sie den Ball mit dem Schläger im Spiel und zerschlagen Sie jeden Ziegel. Fünf Level, mit Tastatur oder Maus.</p>
+    <p xml:lang="fr">Le mur de briques classique : gardez la balle en jeu avec la raquette et cassez chaque brique. Cinq niveaux, au clavier ou à la souris.</p>
+    <p xml:lang="es">El clásico muro de ladrillos: mantenga la pelota en juego con la pala y rompa cada ladrillo. Cinco niveles, con el teclado o el ratón.</p>
+    <p xml:lang="it">Il classico muro di mattoni: tieni la palla in gioco con la racchetta e rompi ogni mattone. Cinque livelli, con la tastiera o il mouse.</p>
+    <ul>
+      <li>Arrow keys or the mouse move the paddle</li>
+      <li xml:lang="de">Pfeiltasten oder die Maus bewegen den Schläger</li>
+      <li xml:lang="fr">Les flèches ou la souris déplacent la raquette</li>
+      <li xml:lang="es">Las flechas o el ratón mueven la pala</li>
+      <li xml:lang="it">Le frecce o il mouse muovono la racchetta</li>
+      <li>Ten best scores</li>
+      <li xml:lang="de">Zehn Bestwerte</li>
+      <li xml:lang="fr">Dix meilleurs scores</li>
+      <li xml:lang="es">Diez mejores puntuaciones</li>
+      <li xml:lang="it">Dieci punteggi migliori</li>
+      <li>Full screen with F11</li>
+      <li xml:lang="de">Vollbild mit F11</li>
+      <li xml:lang="fr">Plein écran avec F11</li>
+      <li xml:lang="es">Pantalla completa con F11</li>
+      <li xml:lang="it">Schermo intero con F11</li>
+      <li>Built on amade-game-engine; plays on other operating systems as well</li>
+      <li xml:lang="de">Gebaut auf amade-game-engine; läuft auch auf anderen Betriebssystemen</li>
+      <li xml:lang="fr">Construit sur amade-game-engine ; fonctionne aussi sur d'autres systèmes d'exploitation</li>
+      <li xml:lang="es">Hecho con amade-game-engine; funciona también en otros sistemas operativos</li>
+      <li xml:lang="it">Costruito su amade-game-engine; funziona anche su altri sistemi operativi</li>
+    </ul>
+  </description>
+
+  <launchable type="desktop-id">amade-bricks-game.desktop</launchable>
+  <icon type="stock">amade-bricks-game</icon>
+  <categories>
+    <category>Game</category>
+    <category>ArcadeGame</category>
+  </categories>
+
+  <url type="homepage">https://github.com/datazuul/amade-bricks-game</url>
+  <url type="bugtracker">https://github.com/datazuul/amade-bricks-game/issues</url>
+  <developer id="eu.amadeos">
+    <name>amadeOS Project</name>
+  </developer>
+
+  <screenshots>
+    <screenshot type="default">
+      <caption>The first level</caption>
+      <caption xml:lang="de">Das erste Level</caption>
+      <caption xml:lang="fr">Le premier niveau</caption>
+      <caption xml:lang="es">El primer nivel</caption>
+      <caption xml:lang="it">Il primo livello</caption>
+      <image>https://raw.githubusercontent.com/datazuul/amade-bricks-game/main/docs/screenshots/amade-bricks-game.png</image>
+    </screenshot>
+  </screenshots>
+
+  <provides>
+    <binary>amade-bricks-game</binary>
+  </provides>
+  <content_rating type="oars-1.1"/>
+</component>
