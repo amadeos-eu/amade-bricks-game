@@ -1,6 +1,6 @@
 # amade-bricks-game
 
-**amade-bricks-game** is the classic wall of bricks on the [amadeOS](https://github.com/datazuul/amadeos) desktop: break every brick with ball and paddle. Built on [amade-game-engine](https://github.com/datazuul/amade-game-engine); runs on other operating systems as well.
+**amade-bricks-game** is the classic wall of bricks on the [amadeOS](https://github.com/amadeos-eu/amadeos) desktop: break every brick with ball and paddle. Built on [amade-game-engine](https://github.com/amadeos-eu/amade-game-engine); runs on other operating systems as well.
 
 ![License](https://img.shields.io/badge/license-EUPL--1.2-blue)
 ![Java](https://img.shields.io/badge/Java-25-orange)
