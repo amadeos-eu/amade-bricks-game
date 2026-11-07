@@ -5,6 +5,8 @@
 ![License](https://img.shields.io/badge/license-EUPL--1.2-blue)
 ![Java](https://img.shields.io/badge/Java-25-orange)
 
+![Bricks](docs/screenshots/amade-bricks-game.png)
+
 ## Playing
 
 - **Enter**, **Space** or a **click** (or F2) starts a game. Move the paddle with the **arrow keys** (or A and D) or the **mouse**, launch the ball with **Space** or a **click**.
